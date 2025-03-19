@@ -1,7 +1,16 @@
 <template>
-  <div>
-    <Beverage :isIced="currentTemp === 'Cold'" :base="selectedBase" :creamer="selectedCreamer" :syrup="selectedSyrup" />
-    
+  <div class="app">
+    <!-- Beverage Mug and Animation -->
+    <div class="mug-container">
+      <Beverage 
+        :isIced="currentTemp === 'Cold'" 
+        :base="selectedBase" 
+        :creamer="selectedCreamer" 
+        :syrup="selectedSyrup" 
+      />
+    </div>
+
+    <!-- Options for customization -->
     <div class="options-container">
       <div class="option">
         <label>Temperature:</label>
@@ -51,29 +60,50 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"; // Don't forget to import ref
+import { ref } from "vue";
+import Beverage from "./components/Beverage.vue";
 import { temps, bases, creamers, syrups } from "./stores/beverage";
 
-// Use .value to access the arrays inside the refs
-const currentTemp = ref(temps.value[1]); // Default to "Cold"
-const selectedBase = ref(bases.value[0]); // Default to "Black Tea"
-const selectedCreamer = ref(creamers.value[0]); // Default to "No Cream"
-const selectedSyrup = ref(syrups.value[0]); // Default to "No Syrup"
-
+// Reactive data for selections
+const currentTemp = ref(temps.value[1]); // Default: "Cold"
+const selectedBase = ref(bases.value[0]); // Default: "Black Tea"
+const selectedCreamer = ref(creamers.value[0]); // Default: "No Cream"
+const selectedSyrup = ref(syrups.value[0]); // Default: "No Syrup"
 </script>
 
 <style scoped>
+/* Brown gradient background covering the whole viewport */
 body,
 html {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: 100%;
-  background-color: #6e4228;
-  background: linear-gradient(to bottom, #6e4228 0%, #956f5a 100%);
+  margin: 0;
+  background-color: #6e4228; /* Solid brown */
+  background: linear-gradient(to bottom, #6e4228 0%, #956f5a 100%); /* Gradient */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* App wrapper centers everything */
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh; /* Ensures it covers the whole screen */
+}
+
+/* Beverage Mug positioning */
+.mug-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px; /* Space between mug and options */
+  height: 50%; /* Adjust height to fit animations */
+}
+
+/* Options layout */
 .options-container {
   display: flex;
   flex-direction: column;
