@@ -1,64 +1,68 @@
 <template>
   <div>
-    <Beverage
-      :isIced="currentTemp === 'Cold'"
-      :creamer="currentCreamer"
-      :syrup="currentSyrup"
-      :base="currentBase"
-    />
+    <Beverage :isIced="currentTemp === 'Cold'" :base="selectedBase" :creamer="selectedCreamer" :syrup="selectedSyrup" />
     
-    <ul>
-      <li>
-        <template v-for="temp in temps" :key="temp">
-          <label>
-            <input
-              type="radio"
-              name="temperature"
-              :id="`r${temp}`"
-              :value="temp"
-              v-model="currentTemp"
-            />
-            {{ temp }}
-          </label>
-        </template>
-      </li>
-    </ul>
+    <div class="options-container">
+      <div class="option">
+        <label>Temperature:</label>
+        <button 
+          v-for="temp in temps" 
+          :key="temp"
+          :class="{ active: currentTemp === temp }"
+          @click="currentTemp = temp">
+          {{ temp }}
+        </button>
+      </div>
 
-    <ul>
-      <li>
-        <label for="creamer">Creamer:</label>
-        <select v-model="currentCreamer" id="creamer">
-          <option v-for="creamer in creamers" :key="creamer.id" :value="creamer">
-            {{ creamer.name }}
-          </option>
-        </select>
-      </li>
-      <li>
-        <label for="syrup">Syrup:</label>
-        <select v-model="currentSyrup" id="syrup">
-          <option v-for="syrup in syrups" :key="syrup.id" :value="syrup">
-            {{ syrup.name }}
-          </option>
-        </select>
-      </li>
-      <li>
-        <label for="base">Base Beverage:</label>
-        <select v-model="currentBase" id="base">
-          <option v-for="base in bases" :key="base.id" :value="base">
-            {{ base.name }}
-          </option>
-        </select>
-      </li>
-    </ul>
+      <div class="option">
+        <label>Creamer:</label>
+        <button 
+          v-for="creamer in creamers" 
+          :key="creamer.id"
+          :class="{ active: selectedCreamer.id === creamer.id }"
+          @click="selectedCreamer = creamer">
+          {{ creamer.name }}
+        </button>
+      </div>
+
+      <div class="option">
+        <label>Syrup:</label>
+        <button 
+          v-for="syrup in syrups" 
+          :key="syrup.id"
+          :class="{ active: selectedSyrup.id === syrup.id }"
+          @click="selectedSyrup = syrup">
+          {{ syrup.name }}
+        </button>
+      </div>
+
+      <div class="option">
+        <label>Base Beverage:</label>
+        <button 
+          v-for="base in bases" 
+          :key="base.id"
+          :class="{ active: selectedBase.id === base.id }"
+          @click="selectedBase = base">
+          {{ base.name }}
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import Beverage from "./components/Beverage.vue";
-import { temps, currentTemp, bases, currentBase, creamers, currentCreamer, syrups, currentSyrup } from "./stores/beverage";
+import { ref } from "vue"; // Don't forget to import ref
+import { temps, bases, creamers, syrups } from "./stores/beverage";
+
+// Use .value to access the arrays inside the refs
+const currentTemp = ref(temps.value[1]); // Default to "Cold"
+const selectedBase = ref(bases.value[0]); // Default to "Black Tea"
+const selectedCreamer = ref(creamers.value[0]); // Default to "No Cream"
+const selectedSyrup = ref(syrups.value[0]); // Default to "No Syrup"
+
 </script>
 
-<style lang="scss">
+<style scoped>
 body,
 html {
   position: relative;
@@ -69,7 +73,38 @@ html {
   background-color: #6e4228;
   background: linear-gradient(to bottom, #6e4228 0%, #956f5a 100%);
 }
-ul {
-  list-style: none;
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.option {
+  margin-bottom: 15px;
+}
+
+button {
+  background-color: #f5f5f5;
+  border: 2px solid #aaa;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #d3d3d3;
+}
+
+button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+button:focus {
+  outline: none;
 }
 </style>

@@ -28,13 +28,20 @@ import Creamer from "./Creamer.vue";
 import Hot from "./Hot.vue";
 import Cold from "./Cold.vue";
 
+// Import the bases, creamers, syrups from store
 import { bases, creamers, syrups } from "../stores/beverage";
 
+// Correct the types for props
+type BaseBeverageType = typeof bases.value[0];
+type CreamerType = typeof creamers.value[0];
+type SyrupType = typeof syrups.value[0];
+
+// Props definition
 type Props = {
   isIced: boolean;
-  base: typeof bases[]; // Base item
-  creamer: typeof creamers[]; // Creamer item
-  syrup: typeof syrups[]; // Syrup item
+  base: BaseBeverageType;
+  creamer: CreamerType;
+  syrup: SyrupType;
 };
 
 defineProps<Props>();
