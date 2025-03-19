@@ -71,17 +71,19 @@ const selectedCreamer = ref(creamers.value[0]); // Default: "No Cream"
 const selectedSyrup = ref(syrups.value[0]); // Default: "No Syrup"
 </script>
 
-<style scoped>
-/* Brown gradient background covering the whole viewport */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: #6e4228; /* Solid brown */
-  background: linear-gradient(to bottom, #6e4228 0%, #956f5a 100%); /* Gradient */
+<style lang="scss">
+body,
+html {
+  position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: #6e4228;
+  background: linear-gradient(to bottom, #6e4228 0%, #956f5a 100%);
+}
+ul {
+  list-style: none;
 }
 
 /* App wrapper centers everything */
