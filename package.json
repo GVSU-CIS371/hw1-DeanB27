@@ -25,3 +25,7 @@
     "vue-tsc": "^2.2.8"
   }
 }
+"scripts": {
+  "deploy": "gh-pages -d dist -b main"
+}
+

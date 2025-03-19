@@ -73,10 +73,10 @@ const selectedSyrup = ref(syrups.value[0]); // Default: "No Syrup"
 
 <style scoped>
 /* Brown gradient background covering the whole viewport */
-body,
-html {
+html, body {
   height: 100%;
   margin: 0;
+  padding: 0;
   background-color: #6e4228; /* Solid brown */
   background: linear-gradient(to bottom, #6e4228 0%, #956f5a 100%); /* Gradient */
   display: flex;
