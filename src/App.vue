@@ -1,6 +1,12 @@
 <template>
   <div>
-    <Beverage :isIced="currentTemp === 'Cold'" />
+    <Beverage
+      :isIced="currentTemp === 'Cold'"
+      :creamer="currentCreamer"
+      :syrup="currentSyrup"
+      :base="currentBase"
+    />
+    
     <ul>
       <li>
         <template v-for="temp in temps" :key="temp">
@@ -17,12 +23,39 @@
         </template>
       </li>
     </ul>
+
+    <ul>
+      <li>
+        <label for="creamer">Creamer:</label>
+        <select v-model="currentCreamer" id="creamer">
+          <option v-for="creamer in creamers" :key="creamer.id" :value="creamer">
+            {{ creamer.name }}
+          </option>
+        </select>
+      </li>
+      <li>
+        <label for="syrup">Syrup:</label>
+        <select v-model="currentSyrup" id="syrup">
+          <option v-for="syrup in syrups" :key="syrup.id" :value="syrup">
+            {{ syrup.name }}
+          </option>
+        </select>
+      </li>
+      <li>
+        <label for="base">Base Beverage:</label>
+        <select v-model="currentBase" id="base">
+          <option v-for="base in bases" :key="base.id" :value="base">
+            {{ base.name }}
+          </option>
+        </select>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script setup lang="ts">
 import Beverage from "./components/Beverage.vue";
-import { temps, currentTemp } from "./stores/beverage";
+import { temps, currentTemp, bases, currentBase, creamers, currentCreamer, syrups, currentSyrup } from "./stores/beverage";
 </script>
 
 <style lang="scss">
